@@ -1,0 +1,104 @@
+<div class="card text-center" style="margin: 20px;">
+    
+    <div class="card-body">
+      <h5 class="card-title">Create car category</h5>
+      <p class="card-text">Click on button to create new car category</p>
+      <button type="button" class="btn btn-primary" (click)="showPositionDialogp('top')">Create</button>
+    </div>
+    
+  </div>
+  <p-messages [(value)]="msgs1" [enableService]="false" *ngIf="errormessage"></p-messages>
+   <div class="outer-div">
+    <p-progressSpinner *ngIf="load" class="inner-div"></p-progressSpinner>
+   </div>
+  
+<div class="row row-cols-1 row-cols-md-3 g-4" style="margin: 20px;">
+    <div class="col" *ngFor="let carcategeroies of lodedCarCategories">
+        <div class="card" id="div">
+            <img src="assets/test.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{carcategeroies.name}}</h5>
+                <h6>{{carcategeroies.slug}}</h6>
+                <p class="card-text">{{carcategeroies.discription}}</p>
+                <button class="btn btn-danger right" (click)="onDeleteCarCategories(carcategeroies.id)">Remove</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+<form (ngSubmit)="onCreateCarCategory()" [formGroup]="createCategory"> 
+    <p-dialog header="Creat CarCategeroy" [(visible)]="displayPosition" [position]="position" [modal]="true"
+      [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  
+      <br>
+      <div class="row">
+  
+       
+  
+        <div class="col" style="margin-top: 15px;">
+          <span class="p-float-label">
+            <input type="text" id="inputtitle" pInputText name="name" formControlName="name" />
+            <label for="inputtitle">Name</label>
+          </span>
+        </div>
+        <div class="col" style="margin-top: 15px;">
+            <span class="p-float-label">
+              <input type="text" id="inputslug" pInputText name="slug" formControlName="slug" /> 
+              <label for="inputslug">slug</label>
+            </span>
+          </div>
+  
+      </div>
+  
+      <div class="row">
+        <div class="col" style="margin-top: 25px;">
+            <span class="p-float-label">
+              <textarea inputId="textarea" style="max-height: 150px;
+                    min-height: 150px
+                    ; " pInputTextarea formControlName="description"></textarea>
+              <label for="textarea">Description</label>
+            </span>
+          </div>
+        <div class="col" style="margin-top: 25px;">
+          <input #inputfilepage style="display: none;" type="file" (change)="onloadfile($event)" accept="image/*">
+  
+          <button (click)="inputfilepage.click()" type="button" class="btn btn-success">Pick file</button>
+          <span *ngIf="namefile"> || {{namefile}}</span>
+  
+        </div>
+      </div>
+  
+      <ng-template pTemplate="footer">
+        <button pButton type="submit" class="p-button-text" label="Send" icon="pi pi-check"></button>
+  
+      </ng-template>
+  
+    </p-dialog>
+  </form>
+
+  <p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
+
+<p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="p-grid p-fluid">
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

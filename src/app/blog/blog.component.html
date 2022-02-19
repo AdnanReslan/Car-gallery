@@ -1,0 +1,270 @@
+<div class="row">
+  <div class="col outer-div margin">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Create blog</h5>
+        <button class="btn btn-primary margin" (click)="showPositionDialog('top')">Add</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col outer-div margin">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Create page</h5>
+        <button class="btn btn-primary margin" (click)="showPositionDialogp('top')">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="outer-div">
+  <p-progressSpinner *ngIf="load" class="inner-div"></p-progressSpinner>
+</div>
+
+
+<div class="row">
+
+  <div class="col margin" >
+      <h4 style="text-align: center;">List of blogs</h4>
+      <div class="card text-center margin" *ngFor="let blog of lodedBlog" >
+          <div class="card-header">
+            
+            <img alt="Card" *ngIf="blog.image" src="assets/test.jpg" class="resize">
+          </div>
+          <div class="card-body">
+              <h5 class="card-title">{{blog.title}}</h5>
+              <p class="card-text">{{blog.description}}</p>
+              <button class="btn btn-success margin" (click)="showPositionDialogupb('top',blog.id,blog.title,blog.description)">Edit</button>
+              <button class="btn btn-danger margin" (click)="onDeleteBlog(blog.id)" >Delete</button>
+          </div>
+         
+      </div>
+  </div>
+
+  <div class="col margin" >
+    <h4 style="text-align: center;">List of blogs</h4>
+    <div class="card text-center margin" *ngFor="let page of lodedPage">
+        <div class="card-header">
+          
+          <img alt="Card" *ngIf="page.image" src="assets/test.jpg" class="resize"> 
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{page.title}}</h5>
+            
+            <button class="btn btn-success margin" (click)="showPositionDialogupp('top',page.id,page.title)">Edit</button>
+            <button class="btn btn-danger margin" (click)="onDeletePage(page.id)" >Delete</button>
+        </div>
+        
+    </div>
+</div>
+
+</div>
+
+
+<form (ngSubmit)="onCreatBlog()" [formGroup]="creatBlog">
+  <p-dialog header="Creat blog" [(visible)]="displayPosition" [position]="position" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+    <br>
+    <div class="row">
+
+
+
+      <div class="col" style="margin-top: 15px;">
+        <span class="p-float-label">
+          <input type="text" id="inputtext" pInputText name="title" formControlName="title" />
+          <label for="inputtext">Title</label>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col" style="margin-top: 25px;">
+        <span class="p-float-label">
+          <textarea inputId="textarea" style="max-height: 150px;
+                min-height: 150px
+                ; " pInputTextarea formControlName="description"></textarea>
+          <label for="textarea">Description</label>
+        </span>
+      </div>
+      <div class="col" style="margin-top: 25px;">
+        <input #inputfile style="display: none;" type="file" (change)="onloadfile($event)" accept="image/*">
+
+        <button (click)="inputfile.click()" type="button" class="btn btn-success">Pick file</button>
+        <span *ngIf="namefileBlog"> || {{namefileBlog}}</span>
+
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton type="submit" class="p-button-text" label="Send" icon="pi pi-check"></button>
+
+    </ng-template>
+
+  </p-dialog>
+</form>
+
+
+
+
+<form (ngSubmit)="onCreatpage()" [formGroup]="creatPage">
+  <p-dialog header="Creat page" [(visible)]="displayPositionp" [position]="positionp" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+    <br>
+    <div class="row">
+
+
+
+      <div class="col" style="margin-top: 15px;">
+        <span class="p-float-label">
+          <input type="text" id="inputtitle" pInputText name="title" formControlName="title" />
+          <label for="inputtitle">Title</label>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col" style="margin-top: 25px;">
+        <input #inputfilepage style="display: none;" type="file" (change)="onloadfilePage($event)" accept="image/*">
+
+        <button (click)="inputfilepage.click()" type="button" class="btn btn-success">Pick file</button>
+        <span *ngIf="namefilePage"> || {{namefilePage}}</span>
+
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button pButton type="submit" class="p-button-text" label="Send" icon="pi pi-check"></button>
+
+    </ng-template>
+
+  </p-dialog>
+</form>
+
+
+<form (ngSubmit)="onupdateBlog()" [formGroup]="updateBlog">
+  <p-dialog header="Update blog" [(visible)]="displayPositionupb" [position]="positionupb" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+    <br>
+    <div class="row">
+
+
+
+      <div class="col" style="margin-top: 15px;">
+        <span class="p-float-label">
+          <input type="text" id="inputtitleupb" pInputText name="title" formControlName="title" [ngModel]="titleblogup" />
+          <label for="inputtitleupb">Title</label>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col" style="margin-top: 25px;">
+        <span class="p-float-label">
+          <textarea inputId="textareaupp" style="max-height: 150px;
+                min-height: 150px
+                ; " pInputTextarea formControlName="description"  [ngModel]="descriptionup"></textarea>
+          <label for="textareaupp">Description</label>
+        </span>
+      </div>
+      <div class="col" style="margin-top: 25px;">
+        <input #inputfileupb style="display: none;" type="file" (change)="onloadfileupb($event)" accept="image/*">
+
+        <button (click)="inputfileupb.click()" type="button" class="btn btn-success">Pick file</button>
+        <span *ngIf="namefileBlogup"> || {{namefileBlogup}}</span>
+
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton type="submit" class="p-button-text" label="Edit" icon="pi pi-check"></button>
+
+    </ng-template>
+
+  </p-dialog>
+</form>
+
+
+<form (ngSubmit)="onupdatePage()" [formGroup]="updatePage">
+  <p-dialog header="Update page" [(visible)]="displayPositionupp" [position]="positionupp" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+    <br>
+    <div class="row">
+
+
+
+      <div class="col" style="margin-top: 15px;">
+        <span class="p-float-label">
+          <input type="text" id="inputtitleupp" pInputText name="title" formControlName="title" [ngModel]="titlepage" />
+          <label for="inputtitleupp">Title</label>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col" style="margin-top: 25px;">
+        <input #inputfilepageup style="display: none;" type="file" (change)="onloadfileupp($event)" accept="image/*">
+
+        <button (click)="inputfilepageup.click()" type="button" class="btn btn-success">Pick file</button>
+        <span *ngIf="namefilePageupp"> || {{namefilePageupp}}</span>
+
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button pButton type="submit" class="p-button-text" label="Send" icon="pi pi-check"></button>
+
+    </ng-template>
+
+  </p-dialog>
+</form>
+
+
+<p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
+
+<p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="p-grid p-fluid">
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+
+
+
+
+
+
+
+
+
+
+
+

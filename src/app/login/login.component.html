@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col" style="min-width: 350px;">
+      <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png" class="img-fluid"
+        alt="Sample image">
+    </div>
+      <div class="col " style="margin-top: 100px ; margin-left: 10px ;">
+      
+        <div  class="card text-center" style="max-width: 450px; min-width:350px ;   ">
+          <div class="card-header" style="font-weight: 600; font-size: x-large;">Login</div>
+          <div class="card-body">
+            <!-- <h5 class="card-title"></h5> -->
+            <!-- <p class="card-text">
+              With supporting text below as a natural .
+            </p> -->
+            <br>
+            <form (ngSubmit)="onLogin()" [formGroup]="login" >
+              <div>
+                <span class="p-float-label">
+                  <input class="form-control" 
+                  type="email" 
+                         id="inputtext" 
+                         pInputText 
+                         name="email"
+                         formControlName="email" />
+                  <label for="inputtext">Email</label>
+                </span>
+              </div>
+              <br> 
+              <div>
+                <span class="p-float-label">
+                  <input class="form-control" 
+                  type="password" 
+                         id="inputpassword" 
+                         pInputText
+                         formControlName="password"   />
+                  <label for="inputpassword">Password</label>
+                </span>
+              </div>
+              <br>
+              <button style="border-radius: 18px;" class="btn btn-primary" type="submit">Login</button>
+            </form>
+            
+          </div>
+          <div class="card-footer text-muted">
+            <p-messages [(value)]="msgs1" [enableService]="false" *ngIf="errormessage"></p-messages>
+            <p-progressSpinner *ngIf="loding"></p-progressSpinner>
+          </div>
+        
+        </div>
+       
+      </div>
+      </div>

@@ -1,0 +1,130 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid " >
+    <a class="navbar-brand">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNav">
+      <ul class="navbar-nav "  >
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/CarAdmin">Car admin</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/Pageadmin">Blog admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" *ngIf="isManage" (click)="topcreatadmin.click()">Create admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" (click)="topmodal.click()">Reset password</a>
+        </li>
+        
+
+      </ul>
+    </div>
+    <a class="nav-link " id="logout" (click)="onLogout()">Logout</a>
+  </div>
+</nav>
+
+<button style="display: none;" #topmodal (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top"
+  styleClass="p-button-warning" [disabled]="false"></button>
+<form (ngSubmit)="onResetPassword()" [formGroup]="resetPasword">
+  <p-dialog header="Reset Password" [(visible)]="displayPosition" [position]="position" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+    <br>
+    <div>
+      <span class="p-float-label">
+        <input class="form-control" type="password" id="inputpassword" pInputText formControlName="password" />
+        <label for="inputpassword">New Password</label>
+      </span>
+
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton type="submit" class="p-button-text" label="Reset" icon="pi pi-check"></button>
+
+    </ng-template>
+
+  </p-dialog>
+</form>
+
+<button style="display: none;" #topcreatadmin (click)="showPositionDialogcreatadmin('top')" icon="pi pi-arrow-down" label="Top"
+  styleClass="p-button-warning" [disabled]="false"></button>
+<form (ngSubmit)="onCreatAdmin()" [formGroup]="creatAdmin">
+  <p-dialog header="Creat admin" [(visible)]="displayPositionc" [position]="positionc" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+    <br>
+    <div>
+    
+        <div>
+          <span class="p-float-label">
+            <input class="form-control" 
+                  type="email" 
+                   id="inputtext" 
+                   pInputText 
+                   name="email"
+                   formControlName="email" />
+            <label for="inputtext">Email</label>
+          </span>
+        </div>
+        <br> 
+        <div>
+          <span class="p-float-label">
+            <input class="form-control" 
+            type="password" 
+                   id="inputpasswordc" 
+                   pInputText
+                   formControlName="password"   />
+            <label for="inputpasswordc">Password</label>
+          </span>
+        </div>
+        <br>
+        <div>
+          <span class="p-float-label">
+            <input class="form-control" 
+                  type="text" 
+                   id="inputusername" 
+                   pInputText 
+                   name="userName"
+                   formControlName="userName" />
+            <label for="inputusername">User name</label>
+          </span>
+        </div>
+        <br>
+        <p-dropdown [options]="type"  placeholder="Select type" optionLabel="name"  formControlName="role"
+        [showClear]="true"></p-dropdown>
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton type="submit" class="p-button-text" label="Creat" icon="pi pi-check"></button>
+
+    </ng-template>
+
+  </p-dialog>
+</form>
+
+<p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
+
+<p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="p-grid p-fluid">
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

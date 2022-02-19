@@ -1,0 +1,35 @@
+.outer-div {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    
+  }
+  
+  .inner-div {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 3px;
+    
+  }
+  .margin{
+    /*       t    r    b    l */
+    margin: 12px 12px 0px 12px;
+  }
+
+  .margindiv{
+    margin: 12px 12px 0px 12px;
+    text-align: center;
+  }
+  .margin10{
+    margin: 10px;
+  }
+
+  .resize {
+    width: 200px;
+    height : auto;
+    }
+    
+    .resize {
+    width: auto;
+    height : 300px;
+    }

@@ -1,0 +1,640 @@
+<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+    <h3 style="font-weight:normal">Go to</h3>
+    <div style="margin-top: 25px;">
+        <a routerLink="/Categories" style="cursor: pointer;text-decoration: none;color: black;">Categories</a>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a routerLink="/Specification" style="cursor: pointer;text-decoration: none;color: black;">Specification</a>
+    </div>
+</p-sidebar>
+<div style="margin: 20px;">
+
+    <button type="button" (click)="visibleSidebar1 = true" class="btn btn-primary">
+        <i class="fas fa-bars"></i>
+    </button>
+</div>
+
+<div class="row">
+
+    <div class="col">
+
+    </div>
+
+    <div class="col outer-div margin">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title" style="margin:10px">Create Car</h5>
+                <button class="btn btn-primary" style="margin:10px" (click)="onclick()">{{ showAdd ? 'Close' :
+                    'Add'}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+
+    </div>
+
+</div>
+<form (ngSubmit)="onSubmitForm()" [formGroup]="createCar" *ngIf="showAdd">
+    <div>
+
+
+        <div class="card margin">
+            <div class="card-header">
+                Create car
+            </div>
+            <div class="card-body">
+
+
+                <div class="margin">
+                    <span class="p-float-label">
+                        <input type="text" id="name" pInputText formControlName="name" />
+                        <label for="name">name</label>
+                    </span>
+                </div>
+
+
+
+                <div class="margin">
+                    <span class="p-float-label">
+                        <input type="text" id="slug" pInputText formControlName="slug" />
+                        <label for="slug">slug</label>
+                    </span>
+                </div>
+
+
+                <div class="margin">
+                    <span class="p-float-label">
+                        <textarea inputId="textarea" style="max-height: 120px;
+                            min-height: 120px;
+                            max-width: 300px;
+                            min-width: 300px;" pInputTextarea formControlName="description"></textarea>
+                        <label for="textarea">Description</label>
+                    </span>
+                </div>
+
+
+                <div class="margin">
+                    <input #inputfile style="display: none;" type="file" (change)="onloadfile($event)" accept="image/*">
+                    <button (click)="inputfile.click()" type="button" class="btn btn-success">Pick file</button>
+                    <span *ngIf="namefile"> || {{namefile}}</span>
+                </div>
+
+                <div class="card margin">
+                    <div class="card-header">
+                        Create specification
+                    </div>
+                    <div class="card-body">
+
+                        <div class="margin">
+                            <span class="p-float-label">
+                                <input type="text" id="interiorcolor" pInputText formControlName="interiorcolor" />
+                                <label for="interiorcolor">interiorcolor</label>
+                            </span>
+                        </div>
+
+
+                        <div class="margin">
+                            <span class="p-float-label">
+                                <input type="text" id="exteriorcolor" pInputText formControlName="exteriorcolor" />
+                                <label for="exteriorcolor">exteriorcolor</label>
+                            </span>
+                        </div>
+
+                        <div class="margin">
+                            <span class="p-float-label">
+                                <p-inputNumber inputId="doors" formControlName="doors"></p-inputNumber>
+                                <label for="doors">doors</label>
+                            </span>
+                        </div>
+
+
+                        <div class="margin">
+                            <span class="p-float-label">
+                                <p-inputNumber inputId="numberofseats" formControlName="numberofseats"></p-inputNumber>
+                                <label for="numberofseats">numberofseats</label>
+                            </span>
+                        </div>
+
+                        <div class="card margin">
+                            <div class="card-header">
+                                Gear box
+                            </div>
+                            <div class="card-body">
+                                <div class="p-field p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <p-dropdown inputId="gear" [autoDisplayFirst]="false" [options]="Gear"
+                                            optionLabel="name" formControlName="gear"></p-dropdown>
+                                        <label for="gear">Gear type</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card margin">
+                            <div class="card-header">
+                                Features
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row margin">
+                                    <div class="col ">
+                                        <h6>Air conditioner</h6>
+                                    </div>
+                                    <div class="col ">
+                                        <p-inputSwitch formControlName="airconditioner"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="row margin">
+                                    <div class="col ">
+                                        <h6>Audio input</h6>
+                                    </div>
+                                    <div class="col ">
+                                        <p-inputSwitch formControlName="audioinput"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="row margin">
+                                    <div class="col ">
+                                        <h6>USP input</h6>
+                                    </div>
+                                    <div class="col ">
+                                        <p-inputSwitch formControlName="uspinput"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row margin">
+                                    <div class="col ">
+                                        <h6>GPS</h6>
+                                    </div>
+                                    <div class="col">
+                                        <p-inputSwitch formControlName="gps"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="row margin">
+                                    <div class="col ">
+                                        <h6>Bluetooth</h6>
+                                    </div>
+                                    <div class="col ">
+                                        <p-inputSwitch formControlName="bluetooth"></p-inputSwitch>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card margin">
+                            <div class="card-header">
+                                Brand
+                            </div>
+                            <div class="card-body">
+                                <div class="p-field p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <p-dropdown inputId="brand" [autoDisplayFirst]="false" [options]="Brand"
+                                            optionLabel="name" formControlName="brand"></p-dropdown>
+                                        <label for="gear">Brand</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="card margin">
+                    <div class="card-header">
+                        Images
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="form-outline mb-4">
+                            <input #inputfiles style="display: none;" type="file" (change)="onloadImages($event)"
+                                accept="image/*" >
+
+                            <button (click)="inputfiles.click()" type="button" class="btn btn-success">Add
+                                Images</button>
+                            <span *ngIf="uploadedFiles"> || {{uploadedFiles.name}}</span>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card margin">
+                    <div class="card-header">
+                        Category
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="form-check" >
+                            <div *ngFor="let v of catogeries">
+                            <input  (click)="onloadCategories(v.code)"  class="form-check-input" type="checkbox" value="{{v.code}}" id="{{v.code}}">
+                            <label class="form-check-label" for="{{v.code}}">
+                                {{v.name}}
+                            </label>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button style="float:right;margin:30px" class="btn btn-success" type="submit">Send</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+<div class="row row-cols-1 row-cols-md-2 g-4 margin">
+    <div class="col" *ngFor="let car of Car">
+        <div class="card">
+            <div class="card-header">
+                {{car.slug}}
+            </div>
+            <img src="assets/test.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{car.name}}</h5>
+                <p class="card-text">{{car.description}}</p>
+                <div class="card margin">
+                    <div class="card-header">
+                        Specification
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            doors : {{car.doors}}
+                        </div>
+                        <div class="row">
+                            Number of setes : {{car.number_of_setes}}
+                        </div>
+                        <div class="row">
+                            Interior color : {{car.interior_color}}
+                        </div>
+                        <div class="row">
+                            Exterior color : {{car.exterior_color}}
+                        </div>
+                        <hr>
+                     <div class="row">
+                    <div class="col">
+                        Features:
+                        <div class="row margin-left font"  >
+                           <div class="col">
+                            Air conditioner: 
+                           </div>
+                           <div class="col">
+                            <i  class="fas fa-check" style="color: green;" *ngIf="car.airCond"></i>
+                            <i class="fas fa-times" style="color: red;" *ngIf="!(car.airCond)"></i>
+                        </div>
+                            
+                        </div>
+                        <div class="row margin-left">
+                            <div class="col">
+                                Audio input:
+                            </div>
+                            <div class="col">
+                                <i  class="fas fa-check" style="color: green;" *ngIf="car.audioInput"></i>
+                                <i class="fas fa-times" style="color: red;" *ngIf="!(car.audioInput)"></i>
+                            </div>
+                           
+                        </div>
+                        <div class="row margin-left">
+                            <div class="col">
+                                bluetooth:
+                            </div>
+                            <div class="col">
+                                <i  class="fas fa-check" style="color: green;" *ngIf="car.bluetooth"></i>
+                                <i class="fas fa-times" style="color: red;" *ngIf="!(car.bluetooth)"></i>
+                            </div>
+                            
+                         </div>
+                         <div class="row margin-left">
+                            <div class="col">
+                                GPS:
+                            </div>
+                            <div class="col">
+                                <i  class="fas fa-check" style="color: green;" *ngIf="car.gps"></i>
+                                <i class="fas fa-times" style="color: red;" *ngIf="!(car.gps)"></i>
+                            </div>
+                             
+                         </div>
+                         <div class="row margin-left">
+                            <div class="col">
+                                USP input:
+                            </div>
+                            <div class="col">
+                                <i  class="fas fa-check" style="color: green;" *ngIf="car.uspInput"></i>
+                                <i class="fas fa-times" style="color: red;" *ngIf="!(car.uspInput)"></i>
+                            </div>
+                            
+                         </div>
+                    </div>
+                    <div class="col">
+                        Brand:
+                        <div class="row margin-left">
+                           <img src="{{car.iconBrand}}" alt="">
+                        </div>
+                        <div class="row margin-left">
+                           Brand name : {{car.nameBrand}}
+                        </div>
+                        <div class="row margin-left">
+                          Car gear box : {{car.gear_box}}
+                        </div>
+                    </div>
+                     </div>
+                     <div class="card margin">
+                        <div class="card-header">
+                            Images:
+                            
+                        </div>
+                        <div class="card-body">
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col" *ngFor="let img of car.images">
+                                  <div class="card">
+                                    <img src="assets/test.jpg" class="card-img-top" alt="...">
+                                   
+                                  </div>
+                                </div>
+                                
+                                
+
+                              </div>
+                        </div>
+                         </div>
+    
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col margin-but">
+                        <button class="btn btn-success " (click)="showPositionDialogp('top',car.id)">Add image</button>
+                    </div>
+                    <div class="col margin-but">
+                        <button class="btn btn-primary " (click)="showPositionDialogpup('top',car.sepId,car.gearId,car.featuId,car.id,car.name,car.slug,car.description,car.interior_color,car.exterior_color,car.doors,car.number_of_setes,car.airCond,car.audioInput,car.gps,car.bluetooth,car.uspInput,car.nameBrand)">Edit</button>
+                    </div>
+                    <div class="col margin-but">
+                        <button class="btn btn-danger " type="button" (click)="onDeleteCar(car.id)">Delete</button>
+                    </div>
+                   
+                </div>
+               
+               
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Created by {{car.email}}</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
+
+<p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="p-grid p-fluid">
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+
+<form (ngSubmit)="onSubmitSigleImage()" > 
+    <p-dialog header="Add Image" [(visible)]="displayPosition" [position]="position" [modal]="true"
+      [style]="{width: '30vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  
+     <div class="row">
+        <div class="col">
+       <input #inputfiles style="display: none;" type="file" (change)="onloadImagesingle($event)"accept="image/*" >
+
+        <button (click)="inputfiles.click()" type="button" class="btn btn-success">Add Image</button>
+        </div>
+        
+     </div>
+      <ng-template pTemplate="footer">
+        <button pButton type="submit" class="p-button-text" label="Send" icon="pi pi-check"></button>
+  
+      </ng-template>
+  
+    </p-dialog>
+  </form>
+
+
+
+  <form (ngSubmit)="onEditCar()" [formGroup]="upCar"> 
+    <p-dialog header="Edit car" [(visible)]="displayPositionup" [position]="positionup" [modal]="true"
+      [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  
+      <div class="card margin">
+        <div class="card-header">
+            Edit car
+        </div>
+        <div class="card-body">
+
+
+            <div class="margin">
+                <span class="p-float-label">
+                    <input type="text" id="name" pInputText formControlName="name"  [ngModel]="nameup" />
+                    <label for="name">name</label>
+                </span>
+            </div>
+
+
+
+            <div class="margin">
+                <span class="p-float-label">
+                    <input type="text" id="slug" pInputText formControlName="slug" [ngModel]="slugup" />
+                    <label for="slug">slug</label>
+                </span>
+            </div>
+
+
+            <div class="margin">
+                <span class="p-float-label">
+                    <textarea inputId="textarea" style="max-height: 120px;
+                        min-height: 120px;
+                        max-width: 300px;
+                        min-width: 300px;" pInputTextarea formControlName="description" [ngModel]="descriptionup"></textarea>
+                    <label for="textarea">Description</label>
+                </span>
+            </div>
+
+
+            <div class="margin">
+                <input #inputfile style="display: none;" type="file" (change)="onloadfileupcar($event)" accept="image/*">
+                <button (click)="inputfile.click()" type="button" class="btn btn-success">Pick file</button>
+                <span *ngIf="namefileupcar"> || {{namefileupcar}}</span>
+            </div>
+
+            <div class="card margin">
+                <div class="card-header">
+                    Create specification
+                </div>
+                <div class="card-body">
+
+                    <div class="margin">
+                        <span class="p-float-label">
+                            <input type="text" id="interiorcolor" pInputText formControlName="interiorcolor" [ngModel]="interiorcolorup" />
+                            <label for="interiorcolor">interiorcolor</label>
+                        </span>
+                    </div>
+
+
+                    <div class="margin">
+                        <span class="p-float-label">
+                            <input type="text" id="exteriorcolor" pInputText formControlName="exteriorcolor" [ngModel]="exteriorcolorup" />
+                            <label for="exteriorcolor">exteriorcolor</label>
+                        </span>
+                    </div>
+
+                    <div class="margin">
+                        <span class="p-float-label">
+                            <p-inputNumber inputId="doors" formControlName="doors" [ngModel]="doorsup"></p-inputNumber>
+                            <label for="doors">doors</label>
+                        </span>
+                    </div>
+
+
+                    <div class="margin">
+                        <span class="p-float-label">
+                            <p-inputNumber inputId="numberofseats" formControlName="numberofseats" [ngModel]="numberofseteup"></p-inputNumber>
+                            <label for="numberofseats">numberofseats</label>
+                        </span>
+                    </div>
+
+
+                    <div class="card margin">
+                        <div class="card-header">
+                            Features
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row margin">
+                                <div class="col ">
+                                    <h6>Air conditioner</h6>
+                                </div>
+                                <div class="col ">
+                                    <p-inputSwitch formControlName="airconditioner" [ngModel]="airconup"></p-inputSwitch>
+                                </div>
+                            </div>
+
+
+                            <div class="row margin">
+                                <div class="col ">
+                                    <h6>Audio input</h6>
+                                </div>
+                                <div class="col ">
+                                    <p-inputSwitch formControlName="audioinput" [ngModel]="audioinputup"></p-inputSwitch>
+                                </div>
+                            </div>
+
+
+                            <div class="row margin">
+                                <div class="col ">
+                                    <h6>USP input</h6>
+                                </div>
+                                <div class="col ">
+                                    <p-inputSwitch formControlName="uspinput" [ngModel]="uspinputup"></p-inputSwitch>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row margin">
+                                <div class="col ">
+                                    <h6>GPS</h6>
+                                </div>
+                                <div class="col">
+                                    <p-inputSwitch formControlName="gps" [ngModel]="gpsup"></p-inputSwitch>
+                                </div>
+                            </div>
+
+
+                            <div class="row margin">
+                                <div class="col ">
+                                    <h6>Bluetooth</h6>
+                                </div>
+                                <div class="col ">
+                                    <p-inputSwitch formControlName="bluetooth" [ngModel]="bluetoothup"></p-inputSwitch>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card margin">
+                        <div class="card-header">
+                            Brand
+                        </div>
+                        <div class="card-body">
+                            <div class="p-field p-col-12 p-md-4">
+                                <span class="p-float-label">
+                                    <p-dropdown inputId="brand" [autoDisplayFirst]="false" [options]="Brand"
+                                        optionLabel="name" formControlName="brand" ></p-dropdown>
+                                    <label for="gear">Brand</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card margin">
+                <div class="card-header">
+                    Category
+                </div>
+                <div class="card-body">
+
+
+                    <div class="form-check" >
+                        <div *ngFor="let v of catogeries">
+                        <input  (click)="onloadCategoriesup(v.code)"  class="form-check-input" type="checkbox" value="{{v.code}}" id="{{v.code}}" >
+                        <label class="form-check-label" for="{{v.code}}">
+                            {{v.name}}
+                        </label>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+    </div>
+
+
+      <ng-template pTemplate="footer">
+        <button pButton type="submit" class="p-button-text" label="Send" icon="pi pi-check"></button>
+  
+      </ng-template>
+  
+    </p-dialog>
+  </form>
+

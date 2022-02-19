@@ -1,0 +1,21 @@
+#div{
+    overflow: hidden;
+    clear: both;
+}
+.right{
+    float: right;
+}
+
+.outer-div {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    
+  }
+  
+  .inner-div {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 3px;
+    
+  }
